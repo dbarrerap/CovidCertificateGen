@@ -1,6 +1,9 @@
 # CovidCertificateGen
 Programa en Python para generar un certificado de vacunacion de COVID-19. Aplica para Ecuador.
 
+## Requisitos
+El carnet generado usa la fuente FiraSans, estilo Regular. Fira Sans es una fuente desarrollada por Mozilla. Puede ser descargada de [Github de Mozilla](https://github.com/mozilla/Fira) o [Google Fonts](https://fonts.google.com/specimen/Fira+Sans).
+
 ## Instalación
 
 ```
