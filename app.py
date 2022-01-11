@@ -1,13 +1,22 @@
 import sys
 import requests
-from pathlib import Path
-import pdfplumber
+import qrcode
+import os
 from Persona import Persona
 from Vacuna import Vacuna
 from Card import Card
 
 
+def limpeza():
+    path = os.getcwd()
+    files = os.listdir(path)
+    
+    for file in files:
+        if file.endswith('.png'):
+            os.remove(os.path.join(path, file))
+
 def main(args):
+    limpeza()
     p = Persona(args[1], args[2])
     # Consultar Datos
     print('Consultando datos...')
@@ -28,27 +37,21 @@ def main(args):
 
             # print(p)
 
-            # Obtener certificado
-            print('Obteniendo certificado...')
-            url = f"https://certificados-vacunas.msp.gob.ec/viewpdfcertificadomsp/{p.idencrypt}"
-            certificado = requests.get(url)
-            filename = Path(f'{p.cedula}.pdf')
-            filename.write_bytes(certificado.content)
-            print('Certificado descargado!')
-
-            # Obtener QR del certificado
-            print('Obteniendo el codigo QR...')
-            pdf = pdfplumber.open(f'{p.cedula}.pdf')
-            pagina = pdf.pages[0]
-            height = pagina.height
-            img = pagina.images[0]  # El codigo QR es la primera imagen del documento
-            # print(img)
-            bbox = (img['x0'] - 1, height - img['y1'], img['x1'] + 1, height - img['y0'] + 1)
-            # print(bbox)
-            cropped = pagina.crop(bbox)
-            img = cropped.to_image(resolution=145)
+            # Generar codigo QR
+            qr_color = (36, 37, 45)
+            print('Generando codigo QR...')
+            qr_data = f"https://certificados-vacunas.msp.gob.ec/viewpdfcertificadomsp/{p.idencrypt}"
+            qr = qrcode.QRCode(
+                version=9,
+                error_correction=qrcode.constants.ERROR_CORRECT_H,
+                box_size=70,
+                border=4
+            )
+            qr.add_data(qr_data)
+            qr.make()
+            img = qr.make_image(fill_color=qr_color).convert('RGB')
             img.save('qr.png')
-            print('Codigo QR obtenido!')
+            print('Codigo QR generado!')
 
             # Crear tarjeta
             print('Creando la tarjeta...')

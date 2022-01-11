@@ -24,4 +24,4 @@ Ejemplo:
 python app.py 1760000000 1990-01-01
 ```
 
-Este programa descarga los certificados del sitio oficial del Ministerio de Salud Publica del Ecuador: https://certificados-vacunas.msp.gob.ec/
+Este programa genera el mismo codigo QR que se encuentra en el certificado al que se accede desde el sitio oficial del Ministerio de Salud Publica del Ecuador: https://certificados-vacunas.msp.gob.ec/.
