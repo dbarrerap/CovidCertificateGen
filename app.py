@@ -38,6 +38,7 @@ def main(args):
             # print(p)
 
             # Generar codigo QR
+            # El codigo QR es la URL para descargar el certificado en formato PDF, el cual usa el idencrypt como parametro
             qr_color = (36, 37, 45)
             print('Generando codigo QR...')
             qr_data = f"https://certificados-vacunas.msp.gob.ec/viewpdfcertificadomsp/{p.idencrypt}"
