@@ -5,6 +5,7 @@ class Persona:
         self.vacunas = []
         self.nombre = ""
         self.idencrypt = ""
+        self.url = ""
 
     @property
     def nombre(self):
@@ -19,6 +20,13 @@ class Persona:
     @idencrypt.setter
     def idencrypt(self, id):
         self.__idencrypt = id
+
+    @property
+    def url(self):
+        return self.__url
+    @url.setter
+    def url(self, url):
+        self.__url = url
 
     def agregarVacuna(self, vacuna):
         self.vacunas.append(vacuna)
